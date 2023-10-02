@@ -1,0 +1,324 @@
+html {
+    font-size: 1rem;
+}
+
+/*Aqui estou pintando o fundo e retirando qualquer tipo de barra de rolagem, até pq o site é estático*/
+body {
+    background-color: black;
+    overflow: hidden;
+}
+
+/*Quando a legenda aparecer na tela, preciso que a tela seja dividida, então estou organizando a tela por linhas, 
+ou seja, tudo na mesma linha, estou colocando tbm, uma transição de 2 segundos, para as animações acontecerem de forma suave*/
+.tela_dividida {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+/*Aqui estou centralizando todo o sistema solar e definindo seu tamanho*/
+.geral {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/*Quando a tela fica dividida eu preciso que o tamanho e o sistema solar mudem, por isso que o geral 
+se transforma no "geral_dividido"*/
+.geral_dividido {
+    width: 50%;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/*Aqui estou definindo a parte dos textos, cor de fundo, o mouse, largura e assim vai*/
+.contexto {
+    cursor: default;
+    background-color: #222222;
+    width: 50%;
+    margin: 0;
+    height: 100%;
+    color: white;
+    padding: 10px 50px;
+    border-radius: 50px;
+}
+
+/*Aqui estou definindo a parte dos textos, cor de fundo, o mouse, largura e assim vai*/
+.sistema_solar {
+    font-size: 10px;
+    width: 40em;
+    height: 40em;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/*Aqui, bom, é literalmente o meu sol, tô declarando como ele é*/
+.sol {
+    z-index: 100;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top: 15em;
+    left: 15em;
+    width: 10em;
+    height: 10em;
+    background-color: yellow;
+    border-radius: 50%;
+    box-shadow: 0 0 3em white;
+    transition: 0.8s;
+}
+
+/*Como a terra e a lua tem algumas caracteristicas em comum, decidi juntar os dois, pra economizar palavras*/
+.terra, .lua {
+    position: absolute;
+    border-style: solid;
+    border-color: white transparent transparent transparent;
+    border-width: 0.1em 0.1em 0 0;
+    border-radius: 50%;
+}
+
+/*Aqui eu defino como é a órbita da terra*/
+.terra {
+    top: 5em;
+    left: 5em;
+    width: 30em;
+    height: 30em;
+    animation: orbita 50s linear infinite;
+}
+
+/*Aqui eu defino como é a órbita da lua*/
+.lua {
+    top: 0;
+    right: 0;
+    width: 8em;
+    height: 8em;
+    animation: orbita 10s linear infinite;
+}
+        
+/*Aqui eu começo a fazer as bolinhas, que mais para frente vão virar nossos planetinhas*/
+.terra::before, .lua::before {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+}
+
+/*Aqui eu crio a terra*/
+.terra::before {
+    top: 2.8em;
+    right: 2.8em;
+    width: 3em;
+    height: 3em;
+    background-color: aqua;
+}
+
+/*Aqui eu crio a lua*/
+.lua::before {
+    top: 0.8em;
+    right: 0.8em;
+    width: 1.2em;
+    height: 1.3em;
+    background-color: silver;
+}
+
+/*Uma variável em CSS, vou usar ela pra fazer as órbitas*/
+@keyframes orbita {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/*Esse é o contrário da órbita, pra deixar parado*/
+@keyframes orbita-inversa {
+    to {
+        transform: rotate(-360deg);
+    }
+}
+
+/*Esse centro, nada mais é do que as legendas dos planetas*/
+.centro_lua, .centro_terra, .centro_sol {
+    border-radius: 10px;
+    color: white;
+    position: absolute;
+    z-index: 0;
+    background-color: #444444AA;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+/*Aqui eu defino a velocidade contrária da legenda da lua*/
+.centro_lua {
+    margin: -10px 20px;
+    animation: orbita-inversa 8.3333s linear infinite;
+}
+
+/*Aqui eu defino a velocidade contrária da legenda da terra*/
+.centro_terra {
+    margin: 40px 30px;
+    animation: orbita-inversa 50s linear infinite;
+}
+
+/*Aqui eu defino a velocidade contrária da legenda da terra*/
+.orbita_sol, .orbita_terra, .legenda_terra, .legenda_lua {
+    position: absolute;
+}
+
+/*Estou definindo novamente as as órbitas, mas agora é para conseguir clicar e colocar 
+legendas*/
+.orbita_sol {
+    top: 5em;
+    left: 5em;
+    width: 30em;
+    height: 30em;
+    animation: orbita 50s linear infinite;
+}
+
+/*Aqui eu crio o campo para passar o mouse para a terra*/
+.legenda_terra, .legenda_lua {
+    z-index: 100;
+    cursor: pointer;
+}
+
+/*Aqui eu crio o campo para passar o mouse para a terra*/
+.legenda_terra {
+    top: 25;
+    right: 25;
+    width: 3.5em;
+    height: 3.5em;
+}
+
+/*A órbita da terra seria a classe da lua, mas agora é para as legendas*/
+.orbita_terra {
+    top: 0;
+    right: 0;
+    width: 8em;
+    height: 8em;
+    animation: orbita 10s linear infinite;
+}
+
+/*Aqui eu crio a legenda para a lua*/
+.legenda_lua {
+    top: 5px;
+    right: 4px;
+    width: 2em;
+    height: 2em;
+}
+
+/*Criação do triângulo*/
+.ponta {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid #444444AA;
+    transform: rotate(180deg);
+    top: 11.5px;
+}
+
+/*Aqui fica o "sistema_solar"*/
+.legenda_sol {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: -20px;
+    align-items: center;
+}
+
+/*Aqui eu crio a legenda para o sol*/
+.centro_sol {
+    color: white;
+    z-index: 0;
+    background-color: #444444AA;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.gravityName{
+    align-items: flex-end;
+    color: white;
+}
+
+.simulacaobutton
+/*Quando eu clico no sol, a clase se transforma nessa, que faz ele crescer*/
+.crescer_sol {
+    transform: scale(2.5);
+}
+
+.sumir{
+    display: none;
+}
+
+/*Quando eu clico no sol, a clase se transforma nessa, que faz ele crescer*/
+.crescer_terra {
+    z-index: 100;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top: 15em;
+    left: 15em;
+    width: 10em;
+    height: 10em;
+    background-color: aqua;
+    border-radius: 50%;
+    transform: scale(2.5);
+    transition: 0.8s;
+}
+
+/*Quando eu clico na lua, a clase se transforma nessa, que faz ele crescer*/
+.crescer_lua {
+    z-index: 100;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top: 15em;
+    left: 15em;
+    width: 10em;
+    height: 10em;
+    background-color: silver;
+    border-radius: 50%;
+    transform: scale(2.5);
+    transition: 0.8s;
+}
+
+/*Aqui eu defino que as legendas não tem opacidade*/
+.centro_lua, .centro_sol, .centro_terra, .ponta {
+    opacity: 0;
+}
+
+/*Aqui eu defino que as legendas da lua tem opacidade quando passa o mouse 
+sobre a lua*/
+.legenda_lua:hover .centro_lua {
+    opacity: 1 !important;
+}
+
+/*Aqui eu defino que as legendas da terra tem opacidade quando passa o mouse 
+sobre a terra*/
+.legenda_terra:hover .centro_terra {
+    opacity: 1 !important;
+}
+
+/*Aqui eu defino que todas as legendas tem opacidade quando passa o mouse 
+sobre a lua*/
+.crescer_lua:hover .centro_sol, .crescer_lua:hover .ponta, .crescer_terra:hover .centro_sol, .crescer_terra:hover .ponta, .sol:hover .centro_sol, .sol:hover .ponta {
+    opacity: 1 !important;
+}
+
+.contextoPlaneta{
+    display: none;
+}

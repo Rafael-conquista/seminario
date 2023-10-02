@@ -1,24 +1,17 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import { Route,Routes, BrowserRouter } from "react-router-dom";
+import SistemaSolar from './pages/sistema_solar';
+import Menu from './pages/menu'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Menu />}></Route>
+          <Route path="/sistemaSolar" element={<SistemaSolar/>}></Route>
+        </Routes>
+    </BrowserRouter>
   );
 }
 
