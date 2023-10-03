@@ -23,6 +23,7 @@ function SistemaSolar(anterior='') {
             elementoId = ''
         }else if(planet !== ''){
             elementoId = ''
+
         }
 
         setPlanet(elementoId)

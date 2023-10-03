@@ -13,13 +13,21 @@ function Menu(){
                 <h2 className='h2'>Física aplicadas em JavaScript</h2>
                 <hr className='.hr'></hr>
                 <li className="tema">
-                <img src={planets} alt='vazio' className="tema_imagem" onClick={() => window.location.href = '/sistemaSolar'}/> 
-                <div className="legenda ">Sistema Solar</div>
+                    <img src={planets} alt='vazio' className="tema_imagem" onClick={() => window.location.href = '/sistemaSolar'}/> 
+                    <div className="legenda ">Sistema Solar</div>
                 </li>    
                 <li className="tema">
-                <img src="" className="tema_imagem" alt='vazio'/> 
-                <div className="legenda">Outros temas</div>
+                    <img src={planets} className="tema_imagem" alt='vazio' onClick={() => window.location.href = '/mola'}/> 
+                    <div className="legenda ">Simulação de Mola</div>
                 </li> 
+                <li className='tema'>
+                    <img src={planets} className="tema_imagem" alt='vazio' onClick={() => window.location.href = '/pendulum'}/> 
+                    <div className="legenda ">Simulação de pêndulo</div>
+                </li>
+                <li className='tema'>
+                    <img src={planets} className="tema_imagem" alt='vazio' onClick={() => window.location.href = '/colisao'}/> 
+                    <div className="legenda ">Simulação de pêndulo</div>
+                </li>
             </div>
             </div>
         </div>
