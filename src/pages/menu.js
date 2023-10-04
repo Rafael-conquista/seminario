@@ -26,7 +26,7 @@ function Menu(){
                 </li>
                 <li className='tema'>
                     <img src={planets} className="tema_imagem" alt='vazio' onClick={() => window.location.href = '/colisao'}/> 
-                    <div className="legenda ">Simulação de pêndulo</div>
+                    <div className="legenda ">Simulação de colisão</div>
                 </li>
             </div>
             </div>

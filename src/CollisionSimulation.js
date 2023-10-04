@@ -1,80 +1,90 @@
 import React, { Component } from 'react';
-import Matter from 'matter-js';
+import p5 from 'p5';
 
-class MatterCanvas extends Component {
+class Sketch extends Component {
   constructor(props) {
     super(props);
-    this.canvasRef = React.createRef();
+    this.sketchRef = React.createRef();
   }
 
   componentDidMount() {
-    const { Engine, Render, Bodies, World, Mouse, MouseConstraint, Events } = Matter;
+    const sketch = (p) => {
+      let ball1;
+      let ball2;
 
-    const engine = Engine.create();
+      p.setup = () => {
+        const canvas = p.createCanvas(window.innerWidth, window.innerHeight);
+        canvas.parent(this.sketchRef.current);
 
-    const render = Render.create({
-      element: this.canvasRef.current,
-      engine: engine,
-      options: {
-        width: 800,
-        height: 600,
-        wireframes: false,
-      },
-    });
+        // Inicializa as bolas com posições e velocidades iniciais
+        ball1 = new Ball(p.width / 4, p.height / 2, 80, p.createVector(15, 5));
+        ball2 = new Ball((3 * p.width) / 4, p.height / 2, 65, p.createVector(-15, -10));
+      };
 
-    const ground = Bodies.rectangle(400, 580, 800, 20, { isStatic: true });
+      p.draw = () => {
+        p.background(220); // Define o fundo do canvas
 
-    const mouse = Matter.Mouse.create(render.canvas);
-    const mouseConstraint = Matter.MouseConstraint.create(engine, {
-      mouse: mouse,
-      constraint: {
-        render: { visible: false },
-      },
-    });
-    render.mouse = mouse;
+        // Atualiza e exibe as bolas
+        ball1.update();
+        ball2.update();
+        ball1.display();
+        ball2.display();
 
-    let ball = Matter.Bodies.circle(200, 200, 30);
-    ball.render.fillStyle = 'red'; // Define a cor de preenchimento da bolinha como vermelha
-    const sling = Matter.Constraint.create({
-      pointA: { x: 200, y: 200 },
-      bodyB: ball,
-      stiffness: 0.05,
-    });
+        // Verifica a colisão entre as bolas
+        if (ball1.checkCollision(ball2)) {
+          ball1.handleCollision(ball2);
+          ball2.handleCollision(ball1);
+        }
+      };
 
-    const stack = Matter.Composites.stack(1000, 200, 4, 4, 0, 0, function (x, y) {
-      return Matter.Bodies.polygon(x, y, 8, 30);
-    });
+      class Ball {
+        constructor(x, y, radius, velocity) {
+          this.position = p.createVector(x, y);
+          this.radius = radius;
+          this.velocity = velocity;
+        }
 
-    let firing = false;
-    Events.on(mouseConstraint, 'enddrag', function (e) {
-      if (e.body === ball) firing = true;
-    });
-    Events.on(engine, 'afterUpdate', function () {
-      if (firing && Math.abs(ball.position.x - 200) < 20 && Math.abs(ball.position.y - 200) < 20) {
-        ball = Matter.Bodies.circle(200, 200, 20);
-        ball.render.fillStyle = 'red'; // Define a cor de preenchimento da nova bolinha como vermelha
-        Matter.World.add(engine.world, ball);
-        sling.bodyB = ball;
-        firing = false;
+        update() {
+          this.position.add(this.velocity);
+
+          // Verifica e trata a colisão com as paredes
+          if (this.position.x + this.radius >= p.width || this.position.x - this.radius <= 0) {
+            // Deixe as bolas continuar se movendo na direção oposta quando atingirem as laterais
+            this.velocity.x *= -1;
+          }
+
+          if (this.position.y + this.radius >= p.height || this.position.y - this.radius <= 0) {
+            this.velocity.y *= -1;
+          }
+        }
+
+        display() {
+          p.fill(0);
+          p.ellipse(this.position.x, this.position.y, this.radius * 2);
+        }
+
+        // Verifica a colisão com outra bola
+        checkCollision(other) {
+          const distance = p.dist(this.position.x, this.position.y, other.position.x, other.position.y);
+          return distance < this.radius + other.radius;
+        }
+
+        // Trata a colisão com outra bola (inverte a velocidade)
+        handleCollision(other) {
+          const delta = p5.Vector.sub(this.position, other.position);
+          delta.normalize();
+          this.velocity.reflect(delta);
+        }
       }
-    });
+    };
 
-    Matter.World.add(engine.world, [stack, ground, ball, sling, mouseConstraint]);
-    Engine.run(engine);
-    Render.run(render);
-  }
-
-  componentWillUnmount() {
-    // Limpa o canvas e pára a simulação ao desmontar o componente
-    // Certifique-se de que o componente está desmontado antes de limpar o Matter.js
-    // e encerrar a renderização
-    Matter.Render.stop(this.render);
-    Matter.Engine.clear(this.engine);
+    // Cria um novo sketch p5.js no elemento HTML com a referência 'sketchRef'
+    this.p5 = new p5(sketch);
   }
 
   render() {
-    return <canvas ref={this.canvasRef} />;
+    return <div ref={this.sketchRef}></div>;
   }
 }
 
-export default MatterCanvas;
+export default Sketch;

@@ -5,7 +5,6 @@ import SistemaSolar from './pages/sistema_solar';
 import SpringSimulation from './SpringSimulation';
 import PendulumSimulation from './PendulumSimulation';
 import CollisionSimulation from './CollisionSimulation';
-import GameMatter from './GameMatter'
 import Menu from './pages/menu'
 
 function App() {
@@ -17,7 +16,6 @@ function App() {
           <Route path="/mola" element={<SpringSimulation/>}></Route>
           <Route path="/pendulum" element={<PendulumSimulation/>}></Route>
           <Route path="/colisao" element={<CollisionSimulation/>}></Route>
-          <Route path="/game" element={<GameMatter/>}></Route>
         </Routes>
         
     </BrowserRouter>
