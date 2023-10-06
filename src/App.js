@@ -5,6 +5,8 @@ import SistemaSolar from './pages/sistema_solar';
 import SpringSimulation from './SpringSimulation';
 import PendulumSimulation from './PendulumSimulation';
 import CollisionSimulation from './CollisionSimulation';
+import Cloth from './Cloth';
+import NewtonCradle from './NewtonCradle';
 import Menu from './pages/menu'
 
 function App() {
@@ -16,6 +18,8 @@ function App() {
           <Route path="/mola" element={<SpringSimulation/>}></Route>
           <Route path="/pendulum" element={<PendulumSimulation/>}></Route>
           <Route path="/colisao" element={<CollisionSimulation/>}></Route>
+          <Route path="/cloth" element={<Cloth/>}></Route>
+          <Route path="/NewtonCradle" element={<NewtonCradle/>}></Route>
         </Routes>
         
     </BrowserRouter>

@@ -28,6 +28,14 @@ function Menu(){
                     <img src={planets} className="tema_imagem" alt='vazio' onClick={() => window.location.href = '/colisao'}/> 
                     <div className="legenda ">Simulação de colisão</div>
                 </li>
+                <li className='tema'>
+                    <img src={planets} className="tema_imagem" alt='vazio' onClick={() => window.location.href = '/cloth'}/> 
+                    <div className="legenda ">Cloth</div>
+                </li>
+                <li className='tema'>
+                    <img src={planets} className="tema_imagem" alt='vazio' onClick={() => window.location.href = '/NewtonCradle'}/> 
+                    <div className="legenda ">pêndulo de Newton</div>
+                </li>
             </div>
             </div>
         </div>
