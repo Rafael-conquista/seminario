@@ -36,6 +36,10 @@ function Menu(){
                     <img src={planets} className="tema_imagem" alt='vazio' onClick={() => window.location.href = '/NewtonCradle'}/> 
                     <div className="legenda ">pêndulo de Newton</div>
                 </li>
+                <li className='tema'>
+                    <img src={planets} className="tema_imagem" alt='vazio' onClick={() => window.location.href = '/game'}/> 
+                    <div className="legenda ">Game</div>
+                </li>
             </div>
             </div>
         </div>
